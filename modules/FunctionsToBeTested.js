@@ -45,3 +45,45 @@ export const Calculator = () => {
         multiply
     }
 }
+
+
+const _isALetter = (char) => {
+    return /[a-zA-Z]/.test(char);
+}
+
+const _isCapitalized = (char) => {
+    return _isALetter(char) && char == char.toUpperCase();
+}
+
+
+export const caesarCipher = (characters, factor) => {
+   const lowercased_alphabet = 'abcdefghijklmnopqrstuvwxyz';
+   const uppercased_alphabet = lowercased_alphabet.toUpperCase();
+
+   if((typeof characters !== "string") || (typeof factor !== "number")) {
+        throw new Error('Invalid input: characters should be string and factor should be a number');
+   }
+
+   let encryptedString = '';
+
+   for (let p = 0; p < characters.length; p++) {
+    const char = characters[p];
+
+    if (!_isALetter(char)) {
+        encryptedString += char;
+        continue;
+    }
+
+    const alphabet = !_isCapitalized(char) ? lowercased_alphabet : uppercased_alphabet;
+    
+    const index = alphabet.indexOf(char);
+    const sum = index + factor;
+
+    const finalIndex = (sum + alphabet.length) % alphabet.length;
+    const charToBeAdded = alphabet.charAt(finalIndex);
+
+    encryptedString += charToBeAdded;
+   }
+
+   return encryptedString;
+}
