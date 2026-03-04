@@ -4,7 +4,7 @@ export const validateTwoNumbers = (a, b) => {
     }
 }
 
-export const validateString = () => {
+export const validateString = (word) => {
     if(typeof word != "string") {
         throw new Error('Error: accepts string values only')
     }
