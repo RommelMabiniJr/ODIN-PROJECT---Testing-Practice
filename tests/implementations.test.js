@@ -249,3 +249,66 @@ describe("Calculator", () => {
     })
   })
 })
+
+describe("caesarCipher()", ()=> {
+  test('function should exist', () => {
+    expect(caesarCipher).not.toBeUndefined();
+    expect(typeof caesarCipher).toBe("function");
+  });
+
+  test('has 2 parameters', () => {
+    expect(caesarCipher.length).toBe(2);
+  })
+
+  test('should return error when param types does not match', () => {
+    const ERROR_MSG = 'Invalid input: characters should be string and factor should be a number'
+    const CHAR_MOCK_DATA = 'mock';
+    const FACTOR_MOCK_DATA = 12;
+
+    // Non strings
+    let characterInvalidTestData = [ 
+      {input: 25},         // Number
+      {input: false},      // Boolean
+      {input: null},       // NULL
+      {input: undefined},  // Undefined
+      {input: []},         // Object: Array
+      {input: () => {}}    // Object: Function
+    ]
+
+    // Non number
+    let factorInvalidTestData = [
+      {input: "25"},       // String
+      {input: false},      // Boolean
+      {input: null},       // NULL
+      {input: undefined},  // Undefined
+      {input: []},         // Object: Array
+      {input: () => {}}    // Object: Function
+    ]
+
+    characterInvalidTestData.forEach((test) => {
+      expect(() => caesarCipher(test.input, FACTOR_MOCK_DATA)).toThrow(ERROR_MSG); // First Parameter (Characters) testing
+    })
+
+    factorInvalidTestData.forEach((test) => {
+      expect(() => caesarCipher(CHAR_MOCK_DATA, test.input)).toThrow(ERROR_MSG); // Second Parameter (Factor) testing
+    })
+
+  });
+
+  test('should return the shifted characters of the passed string', () => {
+    let testCases = [
+      {char: "abc", factor: 3, result: "def"},
+      {char: "efp", factor: 5, result: "jku"},
+      {char: "jqz", factor: 12, result: "vcl"},
+      {char: "olrak", factor: -8, result: "gdjsc"},
+      {char: "HeLLo", factor: 3, result: "KhOOr"},
+      {char: "Hello, World!", factor: 3, result: "Khoor, Zruog!"},
+      {char: "123456789", factor: 3, result: "123456789"},
+      {char: "", factor: 3, result: ""},
+    ]
+
+    testCases.forEach((test) => {
+      expect(caesarCipher(test.char, test.factor)).toBe(test.result)
+    })
+  })
+})
