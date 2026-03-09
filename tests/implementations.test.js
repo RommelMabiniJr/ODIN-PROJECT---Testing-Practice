@@ -27,7 +27,7 @@ const testFunctionExists = (getFn, name = "no name provided") => {
 describe("capitalize()", ()=> {
   testFunctionExists(() => capitalize, "capitalize");
 
-  test('should return error when passed with non-string args', () => {
+  test('throws error when input is not a string', () => {
     let testCases = [
       {input: 25},         // Number
       {input: false},      // Boolean
@@ -40,7 +40,7 @@ describe("capitalize()", ()=> {
     _testInvalidInputsSingleParam(capitalize, STR_ONLY_ERROR_MSG, testCases);
   });
 
-  test('should make first character capitalized', () => {
+  test('returns string with first character capitalized', () => {
     let testCases = [
       {input: "mexico", expected: "Mexico"},
       {input: "canada", expected: "Canada"},
@@ -58,7 +58,7 @@ describe("capitalize()", ()=> {
 describe("reverseString()", ()=> {
   testFunctionExists(() => reverseString, "reverseString");
 
-  test('should return error when passed with non-string args', () => {
+  test('throws error when input is not a string', () => {
     let testCases = [
       {input: 25},         // Number
       {input: false},      // Boolean
@@ -71,7 +71,7 @@ describe("reverseString()", ()=> {
     _testInvalidInputsSingleParam(reverseString, STR_ONLY_ERROR_MSG, testCases)
   });
 
-  test('should return the reverse of the passed string', () => {
+  test('returns the reversed string', () => {
     let testCases = [
       {input: "foo", expected: "oof"},
       {input: "mickey mouse", expected: "esuom yekcim"},
@@ -96,11 +96,11 @@ describe("Calculator", () => {
   describe("add()", () => {
     testFunctionExists(() => calculator.add, "add");
 
-    test('has 2 parameters', () => {
+    test('accepts two parameters', () => {
       expect(calculator.add.length).toBe(2);
     })
 
-    test('should return an error when passed with non-numeric arguments', () => {
+    test('throws error when arguments are not numbers', () => {
       let testCases = [
         {input1: 25, input2: "35"},         // Stringed Number
         {input1: 8, input2: "two"},         // Worded Number
@@ -110,7 +110,7 @@ describe("Calculator", () => {
       _testInvalidInputsDoubleParams(calculator.add, NUM_ONLY_ERROR_MSG, testCases)
     })
 
-    test('should sum numbers accurately', () => {
+    test('returns the correct sum for valid numbers', () => {
       let testCases = [
         {num1: 12, num2: 21, expected: 33},                  // Positive Integer
         {num1: 12, num2: -21, expected: -9},                 // Negative Integer
@@ -128,11 +128,11 @@ describe("Calculator", () => {
   describe("subtract()", () => {
     testFunctionExists(() => calculator.subtract, "subtract");
 
-    test('has 2 parameters', () => {
+    test('accepts two parameters', () => {
       expect(calculator.subtract.length).toBe(2);
     })
 
-    test('should return an error when passed with non-numeric arguments', () => {
+    test('throws error when arguments are not numbers', () => {
       let testCases = [
         {input1: 25, input2: "35"},         // Stringed Number
         {input1: 8, input2: "two"},         // Worded Number
@@ -142,7 +142,7 @@ describe("Calculator", () => {
       _testInvalidInputsDoubleParams(calculator.subtract, NUM_ONLY_ERROR_MSG, testCases);
     })
 
-    test('should subtract numbers accurately', () => {
+    test('returns the correct difference for valid numbers', () => {
       let testCases = [
         {num1: 12, num2: 21, expected: -9},                 // Positive Integer
         {num1: 12, num2: -21, expected: 33},                // Negative Integer
@@ -159,11 +159,11 @@ describe("Calculator", () => {
   describe("divide()", () => {
     testFunctionExists(() => calculator.divide, "divide");
 
-    test('has 2 parameters', () => {
+    test('accepts two parameters', () => {
       expect(calculator.divide.length).toBe(2);
     })
 
-    test('should return an error when passed with non-numeric arguments', () => {
+    test('throws error when arguments are not numbers', () => {
       let testCases = [
         {input1: 25, input2: "35"},         // Stringed Number
         {input1: 8, input2: "two"},         // Worded Number
@@ -173,7 +173,7 @@ describe("Calculator", () => {
       _testInvalidInputsDoubleParams(calculator.divide, NUM_ONLY_ERROR_MSG, testCases);
     })
 
-    test('should divide numbers accurately', () => {
+    test('returns the correct quotient for valid numbers', () => {
       let testCases = [
         {num1: 12, num2: 21, expected: 0.57},                 // Positive Integer
         {num1: 12, num2: -21, expected: -0.57},               // Negative Integer
@@ -190,11 +190,11 @@ describe("Calculator", () => {
   describe("multiply()", () => {
     testFunctionExists(() => calculator.multiply, "multiply");
 
-    test('has 2 parameters', () => {
+    test('accepts two parameters', () => {
       expect(calculator.multiply.length).toBe(2);
     })
 
-    test('should return an error when passed with non-numeric arguments', () => {
+    test('throws error when arguments are not numbers', () => {
       let testCases = [
         {input1: 25, input2: "35"},         // Stringed Number
         {input1: 8, input2: "two"},         // Worded Number
@@ -204,7 +204,7 @@ describe("Calculator", () => {
       _testInvalidInputsDoubleParams(calculator.multiply, NUM_ONLY_ERROR_MSG, testCases);
     })
 
-    test('should multiply numbers accurately', () => {      
+    test('returns the correct product for valid numbers', () => {      
       let testCases = [
         {num1: 12, num2: 21, expected: 252},                  // Positive Integer
         {num1: 12, num2: -21, expected: -252},                 // Negative Integer
@@ -222,11 +222,11 @@ describe("Calculator", () => {
 describe("caesarCipher()", ()=> {
   testFunctionExists(() => caesarCipher, "caesarCipher")
 
-  test('has 2 parameters', () => {
+  test('accepts two parameters', () => {
     expect(caesarCipher.length).toBe(2);
   })
 
-  test('should return error when param types does not match', () => {
+  test('throws error when parameters have invalid types', () => {
     const ERROR_MSG = 'Invalid input: characters should be string and factor should be a number'
     const CHAR_MOCK_DATA = 'mock';
     const FACTOR_MOCK_DATA = 12;
@@ -261,7 +261,7 @@ describe("caesarCipher()", ()=> {
 
   });
 
-  test('should return the shifted characters of the passed string', () => {
+  test('returns string with characters shifted by factor', () => {
     let testCases = [
       {char: "abc", factor: 3, result: "def"},
       {char: "efp", factor: 5, result: "jku"},
@@ -282,7 +282,7 @@ describe("caesarCipher()", ()=> {
 describe("analyzeArray()", ()=> {
   testFunctionExists(() => analyzeArray, "analyzeArray");
 
-  test('should error out non-array arguments & non-number array values', () => {
+  test('throws error when input is not an array of numbers', () => {
     const ERROR_MSG = 'Invalid input: accepts array with number values only'
       let testCases = [
         {input: "string"},
@@ -302,7 +302,7 @@ describe("analyzeArray()", ()=> {
       _testInvalidInputsSingleParam(analyzeArray, ERROR_MSG, testCases);
   })
 
-  test('should process empty arrays & return properties with null value', () => {
+  test('returns null properties when array is empty', () => {
     const propsToReturn = ['average', 'min', 'max', 'length'];
     const arr = analyzeArray([]);
 
@@ -311,7 +311,7 @@ describe("analyzeArray()", ()=> {
       })
   })
 
-  test('should return accurate results for valid arrays', () => {
+  test('returns correct statistics for valid number arrays', () => {
         let testCases = [
       {
         arr: [1,8,3,4,2,6],
