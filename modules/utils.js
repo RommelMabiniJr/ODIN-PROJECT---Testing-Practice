@@ -6,6 +6,6 @@ export const validateTwoNumbers = (a, b) => {
 
 export const validateString = (word) => {
     if(typeof word != "string") {
-        throw new Error('Error: accepts string values only')
+        throw new Error('Error: accepts string values only');
     }
 }
