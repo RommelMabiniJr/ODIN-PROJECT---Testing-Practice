@@ -87,3 +87,29 @@ export const caesarCipher = (characters, factor) => {
 
    return encryptedString;
 }
+
+export const analyzeArray = (arr) => {
+    let result = {
+        average: null,
+        min: null,
+        max: null,
+        length: null
+    }
+
+    if(!Array.isArray(arr) || arr.some(v => typeof v !== "number")) {
+        throw new Error('Invalid input: accepts array with number values only')
+    }
+
+    if(Array.isArray(arr) && arr.length == 0) return {...result};
+
+    let arrSortedAsc =  arr.sort((a, b) => a - b); 
+
+    result.average = arr.reduce((prev, curr) => prev + curr) / arr.length;
+    result.min = arrSortedAsc[0];
+    result.max =  arrSortedAsc[arr.length - 1];
+    result.length = arr.length;
+
+    return {
+        ...result
+    }
+}
