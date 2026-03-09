@@ -1,4 +1,4 @@
-import {capitalize, reverseString, Calculator, caesarCipher} from "../modules/FunctionsToBeTested.js";
+import {capitalize, reverseString, Calculator, caesarCipher, analyzeArray} from "../modules/FunctionsToBeTested.js";
 
 describe("capitalize()", ()=> {
   test('function should exist', () => {
@@ -309,6 +309,95 @@ describe("caesarCipher()", ()=> {
 
     testCases.forEach((test) => {
       expect(caesarCipher(test.char, test.factor)).toBe(test.result)
+    })
+  })
+})
+
+describe("analyzeArray()", ()=> {
+  test('function should exist', () => {
+    expect(analyzeArray).not.toBeUndefined();
+    expect(typeof analyzeArray).toBe("function");
+  });
+
+  test('should error out non-array arguments & non-number array values', () => {
+    const ERROR_MSG = 'Invalid input: accepts array with number values only'
+      let testCases = [
+        {value: "string"},
+        {value: 100},
+        {value: null},
+        {value: undefined},
+        {value: true},
+        {value: false},
+        {value: () => {}},
+        {value: new Set([1,2])},
+        {value: new Map()},
+        {value: ["apple", "banana", "orange"]},
+        {value: ["1", "2", "3"]},
+        {value: [1, 2, "3"]},
+      ]
+      
+
+      testCases.forEach((test) => {
+        expect(() => analyzeArray(test.value)).toThrow(ERROR_MSG);
+      })
+  })
+
+  test('should process empty arrays & return properties with null value', () => {
+    const propsToReturn = ['average', 'min', 'max', 'length'];
+    const arr = analyzeArray([]);
+
+    propsToReturn.forEach((prop) => {
+        expect(arr[prop]).toBeNull();
+      })
+  })
+
+  test('should return accurate results for valid arrays', () => {
+        let testCases = [
+      {
+        arr: [1,8,3,4,2,6], 
+        expected: {
+          average: 4,
+          min: 1,
+          max: 8,
+          length: 6
+        }
+      },
+      {
+        arr: [15,14,12,13,11], 
+        expected: {
+          average: 13,
+          min: 11,
+          max: 15,
+          length: 5
+        }
+      },
+      {
+        arr: [0], 
+        expected: {
+          average: 0,
+          min: 0,
+          max: 0,
+          length: 1
+        }
+      },
+      {
+        arr: [-99, 1214, 0, 0.1, 7.66, -456899.00], 
+        expected: {
+          average: -75962.71,
+          min: -456899.00,
+          max: 1214,
+          length: 6
+        }
+      },
+    ]
+
+    testCases.forEach((test) => {
+      const actual = analyzeArray(test.arr);
+
+      expect(actual.average).toBeCloseTo(test.expected.average);
+      expect(actual.min).toBeCloseTo(test.expected.min);
+      expect(actual.max).toBeCloseTo(test.expected.max);
+      expect(actual.length).toBeCloseTo(test.expected.length);
     })
   })
 })
